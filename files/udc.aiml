@@ -71,12 +71,12 @@
 
 <reply>
     <text>No</text>
-    <postback>NOBYE</postback>
+    <postback>BYE</postback>
 </reply></template>
 </category>
 
 <category>
-    <pattern>NOBYE</pattern>
+    <pattern>BYE</pattern>
     <template>All right, then. Thanks for chatting with me, <get name = "name"></get>. Have a great day!</template>
 </category>
 
