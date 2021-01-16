@@ -93,11 +93,6 @@
         </reply>
         
         <reply>
-        <text>No</text>
-        <postback>YESLIST</postback>
-        </reply>
-        
-        <reply>
         <text>Just a list, please.</text>
         <postback>NONARROW</postback>
         </reply>
