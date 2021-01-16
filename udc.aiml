@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+
+<!--Initiates the conversation with a greeting: 'hi'-->
+<category>
+    <pattern>HI</pattern>
+    <template><srai>INTRO</srai></template>
+</category>
+
+<!--Alternate greetings-->
+<category>
+    <pattern>HELLO</pattern>
+    <template><srai>INTRO</srai></template>
+</category>
+
+<category>
+    <pattern>GOOD MORNING</pattern>
+    <template><srai>INTRO</srai></template>
+</category>
+
+<category>
+    <pattern>GOOD EVENING</pattern>
+    <template><srai>INTRO</srai></template>
+</category>
+
+<category>
+    <pattern>GOOD AFTERNOON</pattern>
+    <template><srai>INTRO</srai></template>
+</category>
+
+<!--Chatbot's response-->
+<category>
+    <pattern>INTRO</pattern>
+    <template>    
+    <delay>1</delay>    
+    Welcome! I'm Chatbot. What's your name?
+    </template>
+</category>
+
+<!--Enter your name-->
+<category>
+    <pattern>*</pattern>
+    <that>WHAT IS YOUR NAME</that>
+    <template>
+        <think> <set name = "name"><star/></set></think>
+        <srai>MYNAME</srai>
+    </template>
+</category>
+
+<!--Name saved in variable 'name' - Responding-->
+<category>
+    <pattern>MYNAME</pattern>
+    <template>
+        <delay>2</delay>    
+        Hello, <get name = "name"></get>! It's great to meet you.
+        <srai>INTRODUCED</srai>
+    </template>
+</category>
+
+
+<category>
+    <pattern>INTRODUCED</pattern>
+    <template>
+    <delay>3</delay>    
+    I can assist you with any questions you have 
+    regarding your CS degree. Does this interest you?
+<reply>
+    <text>Yes</text>
+    <postback>YES</postback>
+</reply>
+
+<reply>
+    <text>No</text>
+    <postback>NOBYE</postback>
+</reply></template>
+</category>
+
+<category>
+    <pattern>NOBYE</pattern>
+    <template>All right, then. Thanks for chatting with me, <get name = "name"></get>. Have a great day!</template>
+</category>
+
+<category>
+    <pattern>YES</pattern>
+    <template>
+        <delay>2</delay>    
+        Excellent! Let's get started, then. How would you like to proceed?
+        I could ask you a few questions and make a suggestion for you. Does this
+        sound good?
+        <reply>
+        <text>Yes</text>
+        <postback>YESNARROW</postback>
+        </reply>
+        
+        <reply>
+        <text>No</text>
+        <postback>YESLIST</postback>
+        </reply>
+        
+        <reply>
+        <text>Just a list, please.</text>
+        <postback>NONARROW</postback>
+        </reply>
+    </template>
+</category>
+
+<category>
+    <pattern>RELIST</pattern>
+    <template>
+        <delay>2</delay>    
+        Okay, let's have another look. How would you like to proceed?
+        I could ask you a few questions and make a suggestion for you. Does this
+        sound good?
+        <reply>
+        <text>Yes</text>
+        <postback>YESNARROW</postback>
+        </reply>
+        
+        <reply>
+        <text>Just a list, please.</text>
+        <postback>NONARROW</postback>
+        </reply>
+    </template>
+</category>
+
+<category>
+    <pattern>YESNARROW</pattern>
+    <template>    
+    <delay>1</delay>    
+    Okay, <get name = "name"></get>. Let's see. How do you feel about 
+    Math?
+    <think><set name = "state">Love it</set></think>
+    <condition name = "math"></condition>
+    <condition name = "state" value = "lovemath">
+            I love math!
+    </condition>    
+    <condition name = "state" value = "happy">I am happy!</condition>
+    <condition name = "state" value = "sad">I am sad!</condition>
+    <reply>
+        <text>Love it</text>
+        <think><set name = "state">lovemath</set></think>
+        <postback>LOVEMATH</postback>
+        </reply>
+        <reply>
+        <text>It's really not my cup of tea.</text>
+        <think><set name = "state">hatemath</set></think>
+        <postback>HATEMATH</postback>
+        </reply>
+    </template>
+</category>
+
+<category>
+    <pattern>NONARROW</pattern>
+    <template>    
+    <delay>1</delay>    
+    Okay, <get name = "name"></get>. I'll show a list of some of the hottest
+    jobs in computer science right now and let you decide.
+        <button>
+            <text>Software Engineer</text>
+            <postback>SWENG</postback>
+        </button>
+        <button>
+            <text>Hardware Engineer</text>
+            <postback>HWENG</postback>
+        </button>
+        <button>
+            <text>Data Scientist</text>
+            <postback>DATA</postback>
+        </button>
+        <button>
+            <text>Database Administrator</text>
+            <postback>DBADMIN</postback>
+        </button>
+        <button>
+            <text>Web Developer</text>
+            <postback>WEBDEV</postback>
+        </button>
+        <button>
+            <text>Computer Programmer</text>
+            <postback>CPROGRAMMER</postback>
+        </button>
+        <button>
+            <text>Web Designer</text>
+            <postback>WEBDES</postback>
+        </button>
+       <button>
+            <text>I actually need some help choosing</text>
+            <postback>YESNARROW</postback>
+        </button>
+    </template>
+</category>
+
+<!--Choose a career-->
+<category>
+    <pattern>LOVEMATH</pattern>
+    <template>
+        <delay>1</delay>    
+        That's great! Would you rather work closely with hardware, software, or 
+        do you love working with large amounts of data and research?
+        <button>
+            <text>Hardware</text>
+            <postback>HWENG</postback>
+        </button>
+        <button>
+            <text>Software</text>
+            <postback>SWENG</postback>
+        </button>
+        <button>
+            <text>Data</text>
+            <postback>DATA</postback>
+        </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>SWENG</pattern>
+    <template>
+        <delay>1</delay>
+        I think this job would be a good fit for you.
+        Just click on them for a brief job description:
+        <button>
+            <text>Software Engineer</text>
+            <postback>SWENG</postback>
+        </button>
+    </template>
+</category> 
+
+<category>
+    <pattern>HWENG</pattern>
+    <template>
+        <delay>1</delay>
+        I think this job would be a good fit for you.
+        Just click on them for a brief job description:
+        <button>
+            <text>Hardware Engineer</text>
+            <postback>HWENG</postback>
+        </button>
+    </template>
+</category> 
+
+<category>
+    <pattern>DATA</pattern>
+    <template>
+        <delay>1</delay>
+        I think this job would be a good fit for you.
+        Just click on them for a brief job description:
+        <button>
+            <text>Data Scientist</text>
+            <postback>DATASCI</postback>
+        </button>
+    </template>
+</category> 
+
+<category>
+    <pattern>HATEMATH</pattern>
+    <template>
+        <delay>1</delay>    
+        Me too! Let's look for something that may have lighter math 
+        requirements on average. How do you feel about designing things?
+        <reply>
+        <text>Love it</text>
+        <think><set name = "state">lovemath</set></think>
+        <postback>LOVEDES</postback>
+        </reply>
+        <reply>
+        <text>It's really not my cup of tea.</text>
+        <think><set name = "state">hatemath</set></think>
+        <postback>HATEDES</postback>
+        </reply>
+    </template>
+</category>  
+
+<category>
+    <pattern>LOVEDES</pattern>
+    <template>
+        <delay>1</delay>    
+        Very Cool. I have a couple of design careers for you to take a look at!
+        <button>
+            <text>Video Game Developer</text>
+            <postback>GAMEDEV</postback>
+        </button>
+        <button>
+            <text>Web Designer</text>
+            <postback>WEBDES</postback>
+        </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>HATEDES</pattern>
+    <template>
+        <delay>1</delay>    
+        Me too! Let's look for something that may have lighter math 
+        requirements on average. How do you feel about designing things?
+        <button>
+            <text>Web Developer</text>
+            <postback>WEBDEV</postback>
+        </button>
+        <button>
+            <text>Database Administrator</text>
+            <postback>DBADMIN</postback>
+        </button>
+        <button>
+            <text>Computer Programmer</text>
+            <postback>CPROGRAMMER</postback>
+        </button>
+    </template>
+</category>  
+
+
+<!--Push choice and describes career path-->
+<category>
+    <pattern>SWENG</pattern>
+    <template>
+    <delay>1</delay>Computer software engineers, or software developers, design and 
+    develop software applications or computer systems. They may develop computer
+    applications for clients as well as the major systems that make a computer 
+    run. Occasional extended work hours are typical, and travel to meet with 
+    other members of design teams might be required. Since much of a computer 
+    software engineer's work is done on the computer, telecommuting is often an
+    option for this job.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/software-engineer/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>GAMEDEV</pattern>
+    <template>
+    <delay>1</delay>Video game design careers may appeal to candidates who excel
+    at technology and possess the creative thinking skills to build engaging, 
+    entertaining, functional, and unique interactive experiences.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/video-game-designer/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>CPROGRAMMER</pattern>
+    <template>
+    <delay>1</delay>Computer programmers provide valuable services across economic 
+    sectors, creating code for software and computer applications and programs.
+    These professionals work in information technology, academia, government 
+    service, and medical fields — with additional career opportunities as 
+    independent and contract workers.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/computer-programmer/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>DATASCI</pattern>
+    <template>
+    <delay>1</delay>“Data science” may describe a diverse array of fields and 
+    positions, but generally, data scientists work in teams or independently to 
+    analyze data and address targeted problems. After collecting and cleaning 
+    data, these professionals use programming languages and software tools such 
+    as Tableau to visualize data, identify meaningful patterns, and generate 
+    algorithms and experiments. Data scientists also present their findings and
+    propose organizational solutions.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/data-science/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>WEBDEV</pattern>
+    <template>
+    <delay>1</delay>Web developers work independently as freelancers or with company 
+    teams to create websites. Depending on the job, these professionals may 
+    focus on front-end development, which involves designing sites and producing
+    content, or back-end development, which involves writing code to make
+    website features work. Web developers may also become webmasters for a site,
+    providing maintenance, updates, and troubleshooting when needed.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/web-developer/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>HWENG</pattern>
+    <template>
+    <delay>1</delay>Computer hardware engineers design and supervise the manufacture 
+    and installation of computer systems and related products. They often spend
+    considerable time solving problems, guiding installation, and conducting 
+    computer product testing. The following page provides an overview of the 
+    descriptions, salary information, and occupational projections for computer
+    hardware engineering and related careers.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/computer-hardware-engineer/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>DBADMIN</pattern>
+    <template>
+    <delay>1</delay>Database administrators or managers create and maintain databases
+    compatible with their companies’ needs. These information technology (IT)
+    professionals oversee database updates, storage, security, and 
+    troubleshooting.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/database-administrator/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+    <pattern>WEBDES</pattern>
+    <template>
+    <delay>1</delay>Students who learn web design online develop creative and 
+    technological skills. Website designers must ensure their sites are 
+    engaging. Once they finish their creations, designers pass their ideas to 
+    web developers who bring the plans to life.
+    <button>
+        <text>Click here to learn more!</text>
+        <url>https://www.computerscience.org/careers/web-design/</url>
+    </button>
+    <button>
+        <text>I want to keep looking</text>
+        <postback>RELIST</postback>
+    </button>
+    </template>
+</category>  
+
+<category>
+  <pattern>Good Night</pattern>
+  <template>
+     Hi <get name = "username"/> Thanks for the conversation!
+  </template>  
+</category>  
+
+</aiml>
